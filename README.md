@@ -140,27 +140,3 @@ npx expo start -c
 ```
 
 Feche e abra novamente o Expo Go depois de reiniciar o servidor.
-
-### As imagens nao aparecem
-
-Confira se:
-
-- o arquivo existe em `assets/imagens`;
-- o nome no `require` esta exatamente igual ao nome do arquivo;
-- o projeto foi reiniciado com `npx expo start -c`;
-- o bundle Android inclui o asset:
-
-```bash
-npx expo export --platform android
-```
-
-### O celular nao conecta ao Expo
-
-Verifique se computador e celular estao na mesma rede. Tambem e possivel testar o modo Tunnel pelo menu do Expo quando a rede local estiver bloqueando a conexao.
-
-## Observacoes
-
-- O aplicativo e somente local e nao possui login, banco de dados ou sincronizacao online.
-- Os dados exibidos estao definidos nos arquivos dos componentes.
-- O arquivo `app.json` esta configurado para orientacao retrato.
-- O nome tecnico configurado atualmente no Expo e `amir`, conforme `app.json` e `package.json`.
