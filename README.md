@@ -1,51 +1,57 @@
 # Hallownest Explorer
 
-Aplicativo mobile desenvolvido com Expo e React Native para explorar as areas, mapas e personagens do universo de Hallownest.
+Aplicativo desenvolvido com Expo e React Native para explorar o mundo de Hallownest. O app apresenta areas, mapas e personagens em uma interface com navegacao por abas e telas de detalhes.
+
+## Sobre o projeto
+
+O projeto foi criado para funcionar em Android, iOS e Web. As informacoes e imagens sao mantidas localmente no codigo e nos assets do aplicativo; nao existe servidor ou API externa.
 
 ## Funcionalidades
 
-- Lista de areas de Hallownest na tela inicial.
-- Detalhes das areas com descricao, imagem e curiosidades.
-- Lista de mapas com nome, tipo, caracteristicas e busca.
-- Detalhes dos mapas com imagem e informacoes da regiao.
-- Lista de personagens com imagem, tipo e descricao.
-- Detalhes dos personagens com habilidades e informacoes adicionais.
-- Navegacao por abas entre Home, Personagens e Mapa.
-- Suporte para Android, iOS e Web por meio do Expo.
+- **Home:** lista areas de Hallownest e abre seus detalhes, descricoes e curiosidades.
+- **Mapas:** exibe mapas com nome, tipo, descricao e caracteristicas.
+- **Busca de mapas:** filtra os mapas por nome, tipo ou caracteristicas.
+- **Personagens:** lista personagens com imagem, categoria e descricao.
+- **Detalhes:** apresenta informacoes completas sobre mapas e personagens selecionados.
+- **Navegacao:** usa abas inferiores e navegadores em pilha para organizar as telas.
+- **Multiplataforma:** pode ser executado no Android, iOS e navegador usando Expo.
 
 ## Tecnologias
 
-- Expo `~54.0.7`
-- React `19.1.0`
-- React Native `0.81.4`
-- React Navigation
-- JavaScript e JSX
-- Imagens locais em JPG e PNG
+| Tecnologia | Versao ou uso |
+| --- | --- |
+| Expo | `~54.0.7` |
+| React | `19.1.0` |
+| React Native | `0.81.4` |
+| React Navigation | Navegacao por pilha e abas |
+| JavaScript/JSX | Linguagem do aplicativo |
+| JPG e PNG | Imagens locais do projeto |
 
 ## Requisitos
 
-- Node.js instalado.
-- npm instalado.
-- Expo CLI fornecido pelo projeto via `npx`.
-- Expo Go no celular, caso queira testar em um dispositivo fisico.
+- Node.js em uma versao LTS.
+- npm.
+- Expo Go instalado no celular para testes em dispositivo fisico.
+- Android Studio/emulador Android ou Xcode/simulador iOS, caso queira usar emuladores.
 
 ## Instalacao
 
-Entre na pasta do projeto e instale as dependencias:
+No terminal, acesse a pasta do projeto e instale as dependencias:
 
 ```bash
+cd expo_hollow-main
 npm install
 ```
 
-## Execucao
+## Executando o projeto
 
-Inicie o servidor de desenvolvimento:
+Inicie o servidor do Expo:
 
 ```bash
 npm start
 ```
 
-Tambem e possivel usar os comandos definidos no `package.json`:
+Depois escolha uma das opcoes exibidas no terminal ou use diretamente um dos comandos abaixo:
 
 ```bash
 npm run android
@@ -53,9 +59,14 @@ npm run ios
 npm run web
 ```
 
-Para abrir no celular, inicie o servidor e leia o QR Code usando o Expo Go. O computador e o celular precisam estar na mesma rede quando a conexao local for utilizada.
+### Testando no celular
 
-Se o aplicativo estiver usando uma versao antiga do bundle, limpe o cache:
+1. Execute `npm start`.
+2. Abra o Expo Go no dispositivo.
+3. Escaneie o QR Code exibido pelo Expo.
+4. Mantenha computador e celular na mesma rede quando estiver usando a conexao local.
+
+Se o app estiver carregando uma versao antiga, reinicie limpando o cache:
 
 ```bash
 npx expo start -c
@@ -65,61 +76,91 @@ npx expo start -c
 
 ```text
 expo_hollow-main/
-├── App.js
-├── index.js
-├── app.json
-├── package.json
+├── App.js                         # Navegacao raiz e abas principais
+├── index.js                       # Ponto de entrada do Expo
+├── app.json                       # Configuracao do aplicativo Expo
+├── package.json                   # Dependencias e scripts
 ├── assets/
-│   └── imagens/
+│   └── imagens/                   # Imagens de mapas e personagens
 └── components/
-    ├── Home.js
-    ├── HomeList.js
-    ├── Detalhes.js
-    ├── Mapa.js
-    ├── DetalhesMapa.js
-    ├── Personagens.js
-    └── DetalhesPersonagem.js
+    ├── Home.js                    # Stack interno da tela inicial
+    ├── HomeList.js                # Lista de areas
+    ├── Detalhes.js                # Detalhes das areas
+    ├── Mapa.js                    # Lista e busca de mapas
+    ├── DetalhesMapa.js            # Detalhes do mapa selecionado
+    ├── Personagens.js             # Lista de personagens
+    └── DetalhesPersonagem.js      # Detalhes do personagem selecionado
 ```
 
-## Navegacao
+## Como a navegacao funciona
 
-A navegacao principal esta configurada em `App.js`:
+O `App.js` possui dois niveis principais:
 
-- Um `Native Stack Navigator` controla a tela principal e as telas de detalhes.
-- Um `Bottom Tab Navigator` controla as abas `Home`, `Personagens` e `Mapa`.
-- `Home.js` possui um stack interno para a lista de areas e seus detalhes.
-- `Mapa.js` abre `DetalhesMapa` passando o mapa selecionado.
-- `Personagens.js` abre `DetalhesPersonagem` passando o personagem selecionado.
+1. Um `Native Stack Navigator` controla a tela principal e as telas `DetalhesMapa` e `DetalhesPersonagem`.
+2. Um `Bottom Tab Navigator` apresenta as abas `Home`, `Personagens` e `Mapa`.
 
-## Imagens
+A Home possui um stack proprio para alternar entre a lista de areas e `Detalhes`. Os cards de mapas e personagens enviam o item selecionado para a respectiva tela de detalhes.
 
-As imagens sao carregadas como assets locais usando `require`, por exemplo:
+## Imagens e assets
+
+As imagens sao locais e carregadas com `require`:
 
 ```js
-<Image source={require('../assets/imagens/kni.png')} />
+const imagem = require('../assets/imagens/kni.png');
 ```
 
-Os arquivos ficam em `assets/imagens`. Ao adicionar uma nova imagem, use um caminho relativo correto e mantenha o nome do arquivo com a mesma capitalizacao usada no codigo, especialmente para builds Android.
+Os arquivos ficam em `assets/imagens`. Ao adicionar ou renomear uma imagem:
 
-## Principais arquivos
+- mantenha o caminho relativo correto;
+- respeite maiusculas e minusculas no nome do arquivo;
+- atualize o `require` correspondente;
+- prefira nomes simples, sem espacos ou caracteres especiais.
 
-- `App.js`: configura o navigator raiz, as abas e as telas de detalhes.
-- `components/Home.js`: configura a navegacao interna da Home.
-- `components/HomeList.js`: lista as areas de Hallownest.
-- `components/Detalhes.js`: exibe os detalhes das areas.
-- `components/Mapa.js`: lista e filtra os mapas.
-- `components/DetalhesMapa.js`: exibe os detalhes do mapa selecionado.
-- `components/Personagens.js`: lista os personagens.
-- `components/DetalhesPersonagem.js`: exibe os detalhes do personagem selecionado.
-- `app.json`: define as configuracoes do Expo, como nome, orientacao, icones e splash screen.
-- `index.js`: registra o componente principal no Expo.
+Esses cuidados sao especialmente importantes em builds Android, que podem tratar a capitalizacao dos caminhos de forma diferente do Windows.
 
-## Validacao do bundle
+## Scripts disponiveis
 
-Para verificar se os imports e assets estao sendo resolvidos para Android:
+| Comando | Funcao |
+| --- | --- |
+| `npm start` | Inicia o servidor de desenvolvimento do Expo |
+| `npm run android` | Inicia o projeto direcionado ao Android |
+| `npm run ios` | Inicia o projeto direcionado ao iOS |
+| `npm run web` | Inicia a versao para navegador |
+| `npx expo start -c` | Inicia o Expo limpando o cache |
+| `npx expo export --platform android` | Gera e valida o bundle Android |
+
+## Solucao de problemas
+
+### A tela nao atualiza no celular
+
+Reinicie o servidor limpando o cache:
+
+```bash
+npx expo start -c
+```
+
+Feche e abra novamente o Expo Go depois de reiniciar o servidor.
+
+### As imagens nao aparecem
+
+Confira se:
+
+- o arquivo existe em `assets/imagens`;
+- o nome no `require` esta exatamente igual ao nome do arquivo;
+- o projeto foi reiniciado com `npx expo start -c`;
+- o bundle Android inclui o asset:
 
 ```bash
 npx expo export --platform android
 ```
 
-O comando gera temporariamente a pasta `dist`. Ela pode ser removida depois da validacao.
+### O celular nao conecta ao Expo
+
+Verifique se computador e celular estao na mesma rede. Tambem e possivel testar o modo Tunnel pelo menu do Expo quando a rede local estiver bloqueando a conexao.
+
+## Observacoes
+
+- O aplicativo e somente local e nao possui login, banco de dados ou sincronizacao online.
+- Os dados exibidos estao definidos nos arquivos dos componentes.
+- O arquivo `app.json` esta configurado para orientacao retrato.
+- O nome tecnico configurado atualmente no Expo e `amir`, conforme `app.json` e `package.json`.
